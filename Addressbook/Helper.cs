@@ -7,33 +7,43 @@ namespace AddressBook
     class Helper
     {
         List<Person> PERSON = new ArrayList<Person>();
-        public static int id { get; set; }
-        static String fname, lname, address, city, state, phone, zip;
+
+        String fname = null;
+        static String lname, address, city, state, phone, zip;
 
         public void addRecord()
         {
-
-            Console.WriteLine("Enter First Name");
-            fname = Console.ReadLine();
-            Console.WriteLine("Enter Last Name");
-            lname = Console.ReadLine();
-            Console.WriteLine("Enter Address");
-            address = Console.ReadLine();
-            Console.WriteLine("Enter City");
-            city = Console.ReadLine();
-            Console.WriteLine("Enter State");
-            state = Console.ReadLine();
-            Console.WriteLine("Enter Zip");
-            zip = Console.ReadLine();
-            Console.WriteLine("Enter phone number");
-            phone = Console.ReadLine();
-            PERSON.Add(new Person(fname, lname, address, city, state, phone, zip));
+            int i = 0;
+            while (i == 0)
+            {
+                Console.WriteLine("Enter First Name");
+                fname = Console.ReadLine();
+                if (CheckExist(fname))
+                {
+                    Console.WriteLine("Record with name " + fname + " already exist!!\nPlease enter another name");
+                    i = 1;
+                }
+                Console.WriteLine("Enter Last Name");
+                lname = Console.ReadLine();
+                Console.WriteLine("Enter Address");
+                address = Console.ReadLine();
+                Console.WriteLine("Enter City");
+                city = Console.ReadLine();
+                Console.WriteLine("Enter State");
+                state = Console.ReadLine();
+                Console.WriteLine("Enter Zip");
+                zip = Console.ReadLine();
+                Console.WriteLine("Enter phone number");
+                phone = Console.ReadLine();
+                PERSON.Add(new Person(fname, lname, address, city, state, phone, zip));
+            }
         }
         public void displayRecord()
         {
-            for (int i = 0; i <= PERSON.Count; i++)
+
+            foreach (Person person in PERSON)
             {
-                Console.WriteLine(PERSON);
+                Console.WriteLine(person);
             }
 
         }
@@ -55,7 +65,8 @@ namespace AddressBook
                                 + "\t4: Phone\n"
                                 + "\t5: Zip Code\n"
                                 + "\t6. Save And Exit\n");
-                        int choice = Console.Read();
+                        String option = Console.ReadLine();
+                        int choice = Convert.ToInt32(option);
                         switch (choice)
                         {
                             case 1:
@@ -90,12 +101,42 @@ namespace AddressBook
                                 Console.WriteLine("Please Enter Valid Option");
                                 break;
                         }
-                        //Console.WriteLine(PERSON.Find(id));
+                        Console.WriteLine(PERSON);
                     }
                 } //end of edit() method
+            }
+        }
+        public void deleteRecord()
+        {
+            int id;
+            foreach (Person p in PERSON)
+            {
+                Console.WriteLine("ID: #" + PERSON.IndexOf(p) + " : " + p);
 
             }
+            id = Console.Read();
+            Console.WriteLine("\nEnter #ID to delete Contact : ");
+            PERSON.RemoveAt(id);
+        }
 
+
+        public bool CheckExist(string fname)
+        {
+            int flag = 0;
+            foreach (Person person in PERSON)
+            {
+                if (person.getFname().Equals(fname))
+                {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 1)
+            {
+                return true;
+            }
+            return false;
         }
     }
+
 }
