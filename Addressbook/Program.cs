@@ -23,7 +23,8 @@ namespace AddressBook
                 Console.WriteLine("5: Exit		        \n");
                 Console.WriteLine("--- Enter Your Choice---");
 
-                choice = Console.Read();
+                String opt = Console.ReadLine();
+                choice = Convert.ToInt32(opt);
 
                 switch (choice)
                 {

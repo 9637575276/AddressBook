@@ -40,12 +40,18 @@ namespace AddressBook
         }
         public void displayRecord()
         {
-
-            foreach (Person person in PERSON)
+            if (PERSON == null)
             {
-                Console.WriteLine(person);
-            }
+                Console.WriteLine("!!No Records!!");
 
+            }
+            else
+            {
+                foreach (Person person in PERSON)
+                {
+                    Console.WriteLine(person);
+                }
+            }
         }
         public void editRecord(String fname)
         {
